@@ -1,4 +1,4 @@
-const number = [
+const buttons = [
   { id: "zero", value: "0", type: "number" },
   { id: "one", value: "1", type: "number" },
   { id: "two", value: "2", type: "number" },
@@ -9,37 +9,14 @@ const number = [
   { id: "seven", value: "7", type: "number" },
   { id: "eight", value: "8", type: "number" },
   { id: "nine", value: "9", type: "number" },
-  { id: "decimal", value: ".", type: "decimal" }
-];
-const operator = [
+  { id: "decimal", value: ".", type: "decimal" },
   { id: "add", value: "+", type: "operator" },
   { id: "subtract", value: "-", type: "operator1" },
   { id: "multiply", value: "*", type: "operator" },
   { id: "divide", value: "/", type: "operator" }
 ];
 
-const clearbtn = [{ id: "clear", value: "C", type: "clear" }];
-
-const equalbtn = [{ id: "equals", value: "=", type: "equals" }];
-
-class NumButtons extends React.Component {
-  handleClick = () => {
-    this.props.handleDisplay(this.props.value, this.props.type);
-  };
-
-  render() {
-    return (
-      <div
-        className="calc-buttons"
-        id={this.props.id}
-        onClick={this.handleClick}
-      >
-        <p>{this.props.value}</p>
-      </div>
-    );
-  }
-}
-class OpButtons extends React.Component {
+class Buttons extends React.Component {
   handleClick = () => {
     this.props.handleDisplay(this.props.value, this.props.type);
   };
@@ -69,7 +46,6 @@ class App extends React.Component {
 
   handleDisplay = (value, type) => {
     let str = this.state.display;
-    console.log(str);
     let regex = /[-+//*]+$/;
     let regex2 = /[-]$/;
     let regex3 = /[^.]$/;
@@ -110,28 +86,30 @@ class App extends React.Component {
         <header>
           <h1 id="title">Calculator</h1>
         </header>
-        <div id="calculator">
+        <div class="calculator" id="calc">
           <div id="display">{this.state.display}</div>
-          {number.map((d) => (
-            <NumButtons
+          {buttons.map((d) => (
+            <Buttons
               id={d.id}
               value={d.value}
               type={d.type}
               handleDisplay={this.handleDisplay}
+              className="calc-buttons"
             />
           ))}
-          {operator.map((d) => (
-            <OpButtons
-              id={d.id}
-              value={d.value}
-              type={d.type}
-              handleDisplay={this.handleDisplay}
-            />
-          ))}
-          <button id="clear" onClick={this.clearDisplay}>
+
+          <button
+            id="clear"
+            onClick={this.clearDisplay}
+            className="calc-buttons"
+          >
             C
           </button>
-          <button id="equals" onClick={this.evalDisplay}>
+          <button
+            id="equals"
+            onClick={this.evalDisplay}
+            className="calc-buttons"
+          >
             =
           </button>
         </div>
